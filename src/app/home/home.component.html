@@ -5,6 +5,7 @@
             <p class="categoria">{{product.categoria}}</p>
             <p class="agotado">{{product.agotado}}</p>
         </div>
+        <button class="btn btn-primary btn-crud" [routerLink]="['/productos', product.producto]"><span class="text">Ver producto</span><span class="icon"><i class="fas fa-gamepad"></i></span></button>
     </div>
     <button class="botonCarrito" (click)="goCarrito()"><i class="fas fa-shopping-cart"></i></button>
 </div>

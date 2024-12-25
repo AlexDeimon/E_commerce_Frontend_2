@@ -44,6 +44,33 @@
     text-decoration: none;
     transition: transform 0.5s;
 }
+.btn-crud{
+    width: 160px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.btn-crud, .btn-crud span {
+    transition: 200ms;
+}
+.btn-crud .icon {
+    position: absolute;
+    border-left: 1px solid;
+    transform: translateX(110px);
+    height: 40px;
+    width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}  
+.btn-crud:hover .text {
+    color: transparent;
+}
+.btn-crud:hover .icon {
+    width: 135px;
+    border-left: none;
+    transform: translateX(0);
+}
 .botonCarrito:hover{
     cursor: pointer;
     transform: scale(1.3,1.3);

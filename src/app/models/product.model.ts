@@ -6,4 +6,5 @@ export interface IProducto {
     stock:           number;
     categoria:       string;
     agotado:         boolean;
+    cantidadCarrito: number;
 }
