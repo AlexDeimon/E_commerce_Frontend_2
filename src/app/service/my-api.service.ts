@@ -33,8 +33,12 @@ export class MyApiService {
   }
 
   //* Carrito
-  newShoppingCar(carrito: ICarrito): Observable<ICarrito> {
-    return this._httpClient.post<ICarrito>(`${this.baseURL}/carritos/crear`, carrito);
+  newShoppingCar(): Observable<ICarrito> {
+    return this._httpClient.post<ICarrito>(`${this.baseURL}/carritos/crear`, {});
+  }
+
+  addProductToCarrito(carritoId: string, producto: string, cantidad: number): Observable<ICarrito> {
+    return this._httpClient.put<ICarrito>(`${this.baseURL}/carritos/agregarProducto/${carritoId}/${producto}/${cantidad}`, {});
   }
 
 }

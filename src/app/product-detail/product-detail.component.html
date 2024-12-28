@@ -4,20 +4,20 @@
                 
         </div>
         <div>
-            <h2>{{product?.producto}}</h2>
-            <p><span class="precio">Precio: </span>{{product?.precio | currency}}</p>
-            <p class="categoria">{{product?.categoria}}</p>
-            <p>{{product?.descripcion}}</p>
-            <form>
+            <h2>{{product.producto}}</h2>
+            <p><span class="precio">Precio: </span>{{product.precio | currency}}</p>
+            <p class="categoria">{{product.categoria}}</p>
+            <p>{{product.descripcion}}</p>
+            <form (ngSubmit)="addProductToCarrito()">
                 <div class="form-group">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control hide" placeholder="Nombre producto" required autocomplete="off" v-model="product?.producto">
+                    <input type="text" class="form-control hide" placeholder="Nombre producto" required autocomplete="off" [(ngModel)]="product.producto" name="producto">
                   </div>
                 </div> 
                 <div class="form-group">
                   <div class="input-group mb-3">
                     <span class="input-group-text input-group-text-2"><i class="fas fa-shopping-cart"></i></span>
-                    <input type="number" class="form-control" required autocomplete="off" v-model="product?.cantidadCarrito">
+                    <input type="number" class="form-control" required autocomplete="off" [(ngModel)]="product.cantidadCarrito" name="cantidadCarrito">
                   </div>
                 </div>
                 <button class="btn btn-success btn-crud" type="submit"><span class="text">Agregar</span><span class="icon"><i class="fas fa-plus"></i></span></button>

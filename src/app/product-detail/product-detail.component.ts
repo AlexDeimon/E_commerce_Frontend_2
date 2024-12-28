@@ -8,19 +8,46 @@ import { MyApiService } from '../service/my-api.service';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
+  product: IProducto = {
+    _id: '',
+    producto: '',
+    descripcion: '',
+    precio: 0,
+    stock: 0,
+    categoria: '',
+    agotado: false,
+    cantidadCarrito: 0
+  };
 
-  product?: IProducto;
-  productsList: IProducto[] = [];
-  carritoId: number;
+  constructor(private _route: ActivatedRoute, private _myApiService: MyApiService, private router: Router) {}
 
-  constructor(private _route: ActivatedRoute, private _myApiService: MyApiService, private router: Router) {
-    this.carritoId = 1;
-   }
+  addProductToCarrito(): void {
+    const carritoActual = sessionStorage.getItem("carritoActual");
+    if (carritoActual && this.product) {
+      const carrito = JSON.parse(carritoActual);
+      const cantidad = this.product.cantidadCarrito;
+      this._myApiService.addProductToCarrito(carrito._id, this.product.producto, cantidad).subscribe({
+        next: (updatedCarrito) => {
+          console.log('Producto agregado al carrito:', updatedCarrito);
+        },
+        error: (error) => {
+          console.error('Error al agregar producto al carrito:', error);
+        }
+      });
+    } else {
+      console.error('No se encontró el carrito en sessionStorage o el producto no está definido');
+    }
+  }
 
   goCarrito(): void {
-    console.log('Ir al carrito');
-    this.router.navigate(['/carrito', this.carritoId]);
+    const carritoActual = sessionStorage.getItem("carritoActual");
+    if (carritoActual) {
+      const carrito = JSON.parse(carritoActual);
+      this.router.navigate(['/carrito', carrito._id]);
+    } else {
+      console.error('No se encontró el carrito en sessionStorage');
+    }
   }
 
   ngOnInit(): void {
