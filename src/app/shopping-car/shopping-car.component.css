@@ -1,0 +1,60 @@
+h2 {
+    color: white;
+}
+.contenedor3, .carrito {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cardProduct2 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 50vw;
+    justify-items: left;
+    background: rgba(0, 0, 0, 0.651);
+    color: white;
+    margin-bottom: 10px;
+}
+.cardProduct2 > div:first-child {
+    display: flex;
+    gap: 10px;
+}
+.cardProduct2 > div:last-child {
+    display: flex;
+    align-items: center;
+}
+.cantidad {
+    color: dodgerblue;
+}
+.precio {
+    color: limegreen;
+}
+.btn-crud{
+    width: 160px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.btn-crud, .btn-crud span {
+    transition: 200ms;
+}
+.btn-crud .icon {
+    position: absolute;
+    border-left: 1px solid;
+    transform: translateX(110px);
+    height: 40px;
+    width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}  
+.btn-crud:hover .text {
+    color: transparent;
+}
+.btn-crud:hover .icon {
+    width: 135px;
+    border-left: none;
+    transform: translateX(0);
+}

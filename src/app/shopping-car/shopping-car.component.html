@@ -1,1 +1,26 @@
-<p>Shopping Car works! Carrito ID: {{ carritoId }}</p>
+<ng-container>
+    <div class="contenedor3">
+        <h2>Tu carrito está Listo! <i class="fas fa-shopping-cart"></i></h2>
+        <div class="carrito">
+            <div class="cardProduct2" *ngFor="let product of carrito.productos">
+                <div >
+                    <div>
+                        
+                    </div>
+                    <div >
+                        <h3>{{product.producto}}</h3>
+                        <p><span class="precio">Precio:</span> {{product.precio | currency}}</p>
+                        <p ><span class="cantidad">Cantidad:</span> {{product.cantidadCarrito}}</p>
+                    </div>     
+                </div>
+                <div>
+                    <button class="btn btn-danger btn-crud" (click)="removeProductFromCarrito(product.producto)"><span class="text">Eliminar</span><span class="icon"><i class="fas fa-trash"></i></span></button>
+                </div>   
+            </div>
+            <div>
+                <h2><span class="cantidad">Cantidad de productos:</span>  {{carrito.cantidad_productos}}</h2>
+                <h2><span class="precio">Total:</span> {{carrito.precioTotal | currency}}</h2>
+            </div>    
+        </div>
+   </div>
+</ng-container>
