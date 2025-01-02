@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { IProducto } from '../models/product.model';
 import { ICarrito } from '../models/shopping-car.model';
 import { MyApiService } from '../service/my-api.service';
+import { CategoryService } from '../service/category.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   };
   productsList: IProducto[] = [];
 
-  constructor(private _myApiService: MyApiService) {}
+  constructor(private _myApiService: MyApiService, private categoryService: CategoryService) {}
 
   mostrarAlerta(icon:any, title:string): void {
     Swal.fire({ icon, title });
@@ -39,8 +40,16 @@ export class HomeComponent implements OnInit {
     } else {
       this.carrito._id = JSON.parse(carritoActual);
     }
-    this._myApiService.getAllProducts().subscribe((data: IProducto[]) => {
-      this.productsList = data;
+    this.categoryService.selectedCategory$.subscribe((category) => {
+      if (category) {
+        this._myApiService.getProductsByCategory(category).subscribe((data: IProducto[]) => {
+          this.productsList = data;
+        });
+      } else if (category == '') {
+        this._myApiService.getAllProducts().subscribe((data: IProducto[]) => {
+          this.productsList = data;
+        });
+      }
     });
   }
 }

@@ -1,0 +1,9 @@
+.nav{
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+.input-group-search{
+    width: auto;
+    margin: 1rem;
+}

@@ -1,0 +1,11 @@
+<ng-container>
+    <nav class="nav">
+        <app-logo/>    
+        <div class="input-group input-group-search">
+            <select class="form-select" [(ngModel)]="categoria.nombre" name="categoria">
+                <option *ngFor="let categoria of categoriesList">{{ categoria.nombre }}</option>
+            </select>
+            <button class="btn btn-primary" (click)="filterProducts()"><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+</ng-container>
