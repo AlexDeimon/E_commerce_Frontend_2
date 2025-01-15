@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IProducto } from '../models/product.model';
 import { MyApiService } from '../service/my-api.service';
+import { StorageService } from '../service/storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,10 +18,11 @@ export class ProductDetailComponent implements OnInit {
     stock: 0,
     categoria: '',
     agotado: false,
-    cantidadCarrito: 0
+    cantidadCarrito: 0,
+    imagen: ''
   };
 
-  constructor(private _route: ActivatedRoute, private _myApiService: MyApiService) {}
+  constructor(private _route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) {}
 
   addProductToCarrito(): void {
     const carritoActual = sessionStorage.getItem("carritoActual");
@@ -49,6 +51,14 @@ export class ProductDetailComponent implements OnInit {
         this._myApiService.getProduct(params['producto']).subscribe({
           next: (data: IProducto) => {
             this.product = data;
+            this._storageService.getImageUrl(this.product._id).subscribe({
+              next: (url: string) => {
+                this.product.imagen = url;
+              },
+              error: (error: any) => {
+                console.error(error);
+              }
+            });
           },
           error: (error: any) => {
             console.error(error);

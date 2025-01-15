@@ -61,6 +61,11 @@
     text-decoration: none;
     transition: transform 0.5s;
 }
+.divImgProduct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .botonCarrito:hover{
     cursor: pointer;
     transform: scale(1.3,1.3);
@@ -72,4 +77,8 @@
     font-size: x-large;
     font-weight: bold;
     color: limegreen;
+}
+.cardProduct2 .imgProduct {
+    min-height: 200px;
+    max-height: 400px;
 }

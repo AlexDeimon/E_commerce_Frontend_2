@@ -12,7 +12,7 @@ h2 {
     display: grid;
     grid-template-columns: 50% 50%;
     width: 50vw;
-    justify-items: left;
+    justify-items: center;
     background: rgba(0, 0, 0, 0.651);
     color: white;
     margin-bottom: 10px;
@@ -36,6 +36,11 @@ h2 {
     height: 40px;
     display: flex;
     align-items: center;
+}
+.img-producto {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
 }
 .btn-crud, .btn-crud span {
     transition: 200ms;

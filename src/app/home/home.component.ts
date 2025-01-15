@@ -4,6 +4,7 @@ import { IProducto } from '../models/product.model';
 import { ICarrito } from '../models/shopping-car.model';
 import { MyApiService } from '../service/my-api.service';
 import { CategoryService } from '../service/category.service';
+import { StorageService } from '../service/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   };
   productsList: IProducto[] = [];
 
-  constructor(private _myApiService: MyApiService, private categoryService: CategoryService) {}
+  constructor(private _myApiService: MyApiService, private categoryService: CategoryService, private storageService: StorageService) {}
 
   mostrarAlerta(icon:any, title:string): void {
     Swal.fire({ icon, title });
@@ -44,10 +45,20 @@ export class HomeComponent implements OnInit {
       if (category) {
         this._myApiService.getProductsByCategory(category).subscribe((data: IProducto[]) => {
           this.productsList = data;
+          this.productsList.forEach(product => {
+            this.storageService.getImageUrl(product._id).subscribe(url => {
+              product.imagen = url;
+            });
+          });
         });
       } else if (category == '') {
         this._myApiService.getAllProducts().subscribe((data: IProducto[]) => {
           this.productsList = data;
+          this.productsList.forEach(product => {
+            this.storageService.getImageUrl(product._id).subscribe(url => {
+              product.imagen = url;
+            });
+          });
         });
       }
     });

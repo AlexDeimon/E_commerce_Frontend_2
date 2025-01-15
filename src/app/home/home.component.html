@@ -1,5 +1,6 @@
 <div class="container contenedor2">
     <div class="cardProduct" *ngFor="let product of productsList">
+        <img id="imgProduct" alt="Imagen producto" [src]="product.imagen">
         <h3>{{product.producto}}</h3>
         <div class="flex">
             <p class="categoria">{{product.categoria}}</p>
