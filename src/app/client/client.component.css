@@ -1,0 +1,46 @@
+.cardClient {
+    width: 100vw;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 45% 45%;
+    background: rgba(0, 0, 0, 0.651);
+    color: white;
+}
+.input-group-text-4 {
+    background-color: #007bff ;
+    color: white;
+    border: 1px solid white;
+}
+.tabla {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.tabla th, .tabla td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla th {
+    background-color: #007bff;
+    color: white;
+}
+
+.tabla tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tabla tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tabla th, .tabla td {
+    text-align: center;
+}
+
+.tabla th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}

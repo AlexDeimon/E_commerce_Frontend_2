@@ -8,7 +8,7 @@
             <p><span class="precio">Precio: </span>{{product.precio | currency}}</p>
             <p class="categoria">{{product.categoria}}</p>
             <p>{{product.descripcion}}</p>
-            <form #productForm="ngForm" (ngSubmit)="addProductToCarrito()">
+            <form #productForm="ngForm" (ngSubmit)="addProductToShoppingCar()">
                 <div class="form-group">
                   <div class="input-group mb-3">
                     <input type="text" class="form-control hide" placeholder="Nombre producto" required autocomplete="off" [(ngModel)]="product.producto" name="producto">
@@ -24,5 +24,5 @@
               </form>
         </div>     
     </div>   
-    <button class="botonCarrito" (click)="goCarrito()"><i class="fas fa-shopping-cart"></i></button>
+    <button class="botonCarrito" (click)="goShoppingCar()"><i class="fas fa-shopping-cart"></i></button>
 </ng-container>

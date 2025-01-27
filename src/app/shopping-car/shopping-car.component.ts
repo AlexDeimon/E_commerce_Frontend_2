@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICarrito } from '../models/shopping-car.model';
 import { IProducto } from '../models/product.model';
+import { ICliente } from '../models/client.model';
 import { MyApiService } from '../service/my-api.service';
 import { StorageService } from '../service/storage.service';
 
@@ -29,13 +30,22 @@ export class ShoppingCarComponent implements OnInit {
     cantidadCarrito: 0,
     imagen: ''
   };
+  client: ICliente = {
+    _id:      '',
+    nombre:   '',
+    apellidos:'',
+    direccion:'',
+    telefono: '',
+    correo:   '',
+    compras:  []
+  };
 
   constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) { }
 
-  removeProductFromCarrito(producto: string): void {
+  removeProductFromShoppingCar(producto: string): void {
     const carritoActual = sessionStorage.getItem("carritoActual");
     if (carritoActual) {
-      this._myApiService.removeProductFromCarrito(carritoActual, producto).subscribe({
+      this._myApiService.removeProductFromShoppingCar(carritoActual, producto).subscribe({
         next: (updatedCarrito) => {
           this._myApiService.mostrarAlerta('success', `Se ha eliminado ${producto} del carrito`);
           this.carrito = updatedCarrito;
@@ -48,9 +58,13 @@ export class ShoppingCarComponent implements OnInit {
     }
   }
 
+  getClientComponent(clienteId: string): void {
+    this._myApiService.getClientComponent(clienteId)
+  }
+
   ngOnInit(): void {
     this.carrito._id = this.route.snapshot.paramMap.get('carritoId') || '';
-    this._myApiService.getCarrito(this.carrito._id).subscribe({
+    this._myApiService.getShoppingCar(this.carrito._id).subscribe({
       next: (data: ICarrito) => {
         this.carrito = data;
         this.carrito.productos.forEach((producto) => {

@@ -24,11 +24,11 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) {}
 
-  addProductToCarrito(): void {
+  addProductToShoppingCar(): void {
     const carritoActual = sessionStorage.getItem("carritoActual");
     if (carritoActual) {
       const cantidad = this.product.cantidadCarrito;
-      this._myApiService.addProductToCarrito(carritoActual, this.product.producto, cantidad).subscribe({
+      this._myApiService.addProductToShoppingCar(carritoActual, this.product.producto, cantidad).subscribe({
         next: (updatedCarrito) => {
           this._myApiService.mostrarAlerta('success', 'Producto agregado al carrito');
           console.log('Producto agregado al carrito:', updatedCarrito);
@@ -41,8 +41,8 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  goCarrito(): void {
-    this._myApiService.goCarrito();
+  goShoppingCar(): void {
+    this._myApiService.goShoppingCar();
   }
 
   ngOnInit(): void {

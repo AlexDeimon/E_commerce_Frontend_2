@@ -14,13 +14,34 @@
                     </div>     
                 </div>
                 <div>
-                    <button class="btn btn-danger btn-crud" (click)="removeProductFromCarrito(product.producto)"><span class="text">Eliminar</span><span class="icon"><i class="fas fa-trash"></i></span></button>
+                    <button class="btn btn-danger btn-crud" (click)="removeProductFromShoppingCar(product.producto)"><span class="text">Eliminar</span><span class="icon"><i class="fas fa-trash"></i></span></button>
                 </div>   
             </div>
             <div>
                 <h2><span class="cantidad">Cantidad de productos:</span>  {{carrito.cantidad_productos}}</h2>
                 <h2><span class="precio">Total:</span> {{carrito.precioTotal | currency}}</h2>
-            </div>    
+            </div>
+            <br>
+            <button class="btn btn-primary btn-crud" data-bs-toggle="modal" data-bs-target="#continuarModal"><span class="text">Continuar</span><span class="icon"><i class="fas fa-shopping-cart"></i></span></button>   
         </div>
    </div>
 </ng-container>
+<div class="modal fade" id="continuarModal" tabindex="-1" aria-labelledby="continuarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header header-buscar">
+          <h5 class="modal-title" id="continuarModalLabel">Verificación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <span class="input-group-text input-group-text-2"><i class="fas fa-id-card"></i></span>
+                <input type="text" class="form-control " placeholder="Por favor digite su número de identificación" [(ngModel)]="client._id" name="idCliente" #idCliente="ngModel">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="getClientComponent(client._id)" data-bs-dismiss="modal" aria-label="Close">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>

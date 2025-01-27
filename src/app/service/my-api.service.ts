@@ -50,14 +50,14 @@ export class MyApiService {
     return this._httpClient.post<ICarrito>(`${this.baseURL}/carritos/crear`, {});
   }
 
-  getCarrito(carritoId: string): Observable<ICarrito> {
+  getShoppingCar(carritoId: string): Observable<ICarrito> {
     return this._httpClient.get<ICarrito>(`${this.baseURL}/carritos/${carritoId}`);
   }
 
-  goCarrito(): void {
+  goShoppingCar(): void {
     const carritoActual = sessionStorage.getItem("carritoActual");
     if (carritoActual) {	
-      this.getCarrito(carritoActual).subscribe({
+      this.getShoppingCar(carritoActual).subscribe({
         next: (response) => {
           this.carrito = response;
           if (this.carrito.productos.length === 0) {
@@ -73,12 +73,26 @@ export class MyApiService {
     }
   }
 
-  addProductToCarrito(carritoId: string, producto: string, cantidad: number): Observable<ICarrito> {
+  addProductToShoppingCar(carritoId: string, producto: string, cantidad: number): Observable<ICarrito> {
     return this._httpClient.put<ICarrito>(`${this.baseURL}/carritos/agregarProducto/${carritoId}/${producto}/${cantidad}`, {});
   }
 
-  removeProductFromCarrito(carritoId: string, producto: string): Observable<ICarrito> {
+  removeProductFromShoppingCar(carritoId: string, producto: string): Observable<ICarrito> {
     return this._httpClient.put<ICarrito>(`${this.baseURL}/carritos/borrarProducto/${carritoId}/${producto}`, {});
+  }
+
+  //* Clientes
+
+  getClient(cliente: string): Observable<any> {
+    return this._httpClient.get<any>(`${this.baseURL}/clientes/${cliente}`);
+  }
+
+  getClientComponent(cliente: string): void {
+    if (cliente) {
+      this.router.navigate(['/cliente', cliente]);
+    } else {
+      this.mostrarAlerta('error', 'Debes digitar un numero de ID cliente');
+    }
   }
 
 }

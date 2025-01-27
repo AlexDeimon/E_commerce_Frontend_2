@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HomeComponent,
     ProductDetailComponent,
     ShoppingCarComponent,
-    NavBarComponent
+    NavBarComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

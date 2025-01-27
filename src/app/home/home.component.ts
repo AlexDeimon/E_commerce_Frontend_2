@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit {
     Swal.fire({ icon, title });
   }
 
-  goCarrito(): void {
-    this._myApiService.goCarrito();
+  goShoppingCar(): void {
+    this._myApiService.goShoppingCar();
   }
 
   ngOnInit(): void {

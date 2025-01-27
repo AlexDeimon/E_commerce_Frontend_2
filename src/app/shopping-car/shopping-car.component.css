@@ -42,6 +42,15 @@ h2 {
     height: 100px;
     object-fit: cover;
 }
+.header-buscar{
+    background-color: #007bff ;
+    color: white;
+}
+.input-group-text-2 {
+    background-color: #007bff ;
+    color: white;
+    border: 1px solid white;
+}
 .btn-crud, .btn-crud span {
     transition: 200ms;
 }
