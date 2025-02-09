@@ -25,12 +25,6 @@ h2 {
     display: flex;
     align-items: center;
 }
-.cantidad {
-    color: dodgerblue;
-}
-.precio {
-    color: limegreen;
-}
 .btn-crud{
     width: 160px;
     height: 40px;
@@ -42,9 +36,31 @@ h2 {
     height: 100px;
     object-fit: cover;
 }
-.header-buscar{
-    background-color: #007bff ;
+.modal-content {
+    background: rgba(0, 0, 0, 0.85);
     color: white;
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #007bff;
+}
+
+.modal-header .modal-title {
+    color: #007bff;
+}
+
+.modal-header .btn-close {
+    background-color: white;
+    border: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #007bff;
 }
 .input-group-text-2 {
     background-color: #007bff ;

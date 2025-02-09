@@ -11,6 +11,68 @@
     color: white;
     border: 1px solid white;
 }
+
+.link {
+    color: #007bff;
+    border: none;
+    background: none;
+}
+
+.link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.modal-content {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #007bff;
+}
+
+.modal-header .modal-title {
+    color: #007bff;
+}
+
+.modal-header .btn-close {
+    background-color: white;
+    border: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.img-producto-modal {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    max-height: 200px; 
+    object-fit: cover;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.product-info {
+    flex: 2;
+}
+
+.product-info h3 {
+    margin-top: 0;
+}
+
 .tabla {
     width: 100%;
     margin-top: 20px;

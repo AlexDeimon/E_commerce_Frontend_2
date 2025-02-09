@@ -41,19 +41,43 @@
                 <thead>
                     <tr>
                         <th>Id compra</th>
-                        <th>Cantidad de productos</th>
-                        <th>Precio total</th>
                         <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let compra of client.compras">
-                        <td>{{compra._id}}</td>
-                        <td>{{compra.carrito.cantidad_productos}}</td>
-                        <td>{{compra.carrito.precioTotal | currency}}</td>
+                        <td><button class="link" data-bs-toggle="modal" data-bs-target="#modalCompra" (click)="getShoppingCar(compra.carrito._id)" >{{compra._id}}</button></td>
                         <td>{{compra.fecha | date: "dd-MM-yyyy"}}</td>
                     </tr>
             </table>
+        </div>
+    </div>
+    <div class="modal fade" id="modalCompra" tabindex="-1" aria-labelledby="modalCompraLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header header-buscar">
+                    <h5 class="modal-title" id="modalCompraLabel">Detalle de la compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cardProduct2" *ngFor="let product of shoppingCar.productos">
+                        <div class="product-details">
+                            <div class="product-image">
+                                <img [src]="product.imagen" alt="imagen producto" class="img-producto-modal">
+                            </div>
+                            <div class="product-info">
+                                <h3>{{product.producto}}</h3>
+                                <p><span class="precio">Precio:</span> {{product.precio | currency}}</p>
+                                <p><span class="cantidad">Cantidad:</span> {{product.cantidadCarrito}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2><span class="cantidad">Cantidad de productos:</span> {{shoppingCar.cantidad_productos}}</h2>
+                        <h2><span class="precio">Total:</span> {{shoppingCar.precioTotal| currency}}</h2>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </ng-container>

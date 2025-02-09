@@ -27,6 +27,12 @@ main {
   margin: 1%;
   font-size: large;
 }
+.cantidad {
+  color: dodgerblue;
+}
+.precio {
+  color: limegreen;
+}
 .link,
 .nav-menu_button {
   text-decoration: none;
