@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IProducto } from '../models/product.model';
 import { ICategoria } from '../models/category.model';
 import { ICarrito } from '../models/shopping-car.model';
+import { ICliente } from '../models/client.model';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -93,6 +94,10 @@ export class MyApiService {
     } else {
       this.mostrarAlerta('error', 'Debes digitar un numero de ID cliente');
     }
+  }
+
+  updateClient(id: string, cliente:ICliente): Observable<any> {
+    return this._httpClient.put<any>(`${this.baseURL}/clientes/actualizar/${id}`, cliente);
   }
 
 }

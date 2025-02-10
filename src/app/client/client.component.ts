@@ -28,6 +28,7 @@ export class ClientComponent implements OnInit{
     precioTotal:        0
   };
   newClient: boolean = false;
+  modifyClient: boolean = false;
 
   constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) { }
 
@@ -47,6 +48,31 @@ export class ClientComponent implements OnInit{
         });
       },
       error: (error: any) => {
+        console.error(error);
+      }
+    });
+  }
+
+  modifyClientData(): void {
+    this.modifyClient = true;
+    const elements = document.getElementsByClassName('input-group-text-4');
+    for (let i = 0; i < elements.length; i++) {
+      (elements[i] as HTMLElement).style.backgroundColor = '#ffc107';
+    }
+  }
+
+  updateClient(): void {
+    this._myApiService.updateClient(this.client._id, this.client).subscribe({
+      next: () => {
+        this.modifyClient = false;
+        const elements = document.getElementsByClassName('input-group-text-4');
+        for (let i = 0; i < elements.length; i++) {
+          (elements[i] as HTMLElement).style.backgroundColor = '';
+        }
+        this._myApiService.mostrarAlerta('success', 'Datos actualizados correctamente');
+      },
+      error: (error: any) => {
+        this._myApiService.mostrarAlerta('error', error.error.message);
         console.error(error);
       }
     });
