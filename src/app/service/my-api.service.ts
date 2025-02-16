@@ -6,6 +6,7 @@ import { IProducto } from '../models/product.model';
 import { ICategoria } from '../models/category.model';
 import { ICarrito } from '../models/shopping-car.model';
 import { ICliente } from '../models/client.model';
+import { ICompra } from '../models/purchase.model';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -98,6 +99,12 @@ export class MyApiService {
 
   updateClient(id: string, cliente:ICliente): Observable<any> {
     return this._httpClient.put<any>(`${this.baseURL}/clientes/actualizar/${id}`, cliente);
+  }
+
+  //* compras
+
+  newPurchase(clienteId:string, carritoId: string): Observable<ICompra> {
+    return this._httpClient.post<ICompra>(`${this.baseURL}/compras/agregar/${clienteId}/${carritoId}`, {});
   }
 
 }

@@ -35,6 +35,7 @@
                 </div>
                 <button type="button" class="btn btn-warning" (click)="modifyClientData()" [style.display]="!modifyClient ? 'block' : 'none'">¿Desea actualizar sus datos?</button>
                 <button type="submit" class="btn btn-warning" [style.display]="modifyClient ? 'block' : 'none'">Actualizar</button>
+                <button type="button" class="btn btn-success" (click)="doPurchase()" [style.display]="!modifyClient ? 'block' : 'none'">Realizar Compra</button>
             </form>
         </div>
         <div>

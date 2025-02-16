@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICliente } from '../models/client.model';
 import { ICarrito } from '../models/shopping-car.model';
 import { MyApiService } from '../service/my-api.service';
@@ -30,7 +30,7 @@ export class ClientComponent implements OnInit{
   newClient: boolean = false;
   modifyClient: boolean = false;
 
-  constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) { }
+  constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService, private router:Router) { }
 
   getShoppingCar(id:string): void {
     this._myApiService.getShoppingCar(id).subscribe({
@@ -76,6 +76,23 @@ export class ClientComponent implements OnInit{
         console.error(error);
       }
     });
+  }
+
+  doPurchase(): void {
+    const carritoActual = sessionStorage.getItem("carritoActual");
+    if(carritoActual) {
+      this._myApiService.newPurchase(this.client._id, carritoActual).subscribe({
+        next: () => {
+          this._myApiService.mostrarAlerta('success', 'Compra realizada con éxito');
+          sessionStorage.removeItem('carritoActual');
+          this.router.navigate(['/']);
+        },
+        error: (error: any) => {
+          this._myApiService.mostrarAlerta('error', error.error.message);
+          console.error(error);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
