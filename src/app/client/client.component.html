@@ -1,8 +1,9 @@
 <ng-container>
     <div class="cardClient">
         <div>
-            <h2>Verifica tus datos</h2>
-            <form (ngSubmit)="updateClient()" #clientForm="ngForm">
+            <h2 *ngIf="!newClient">Verifica tus datos</h2>
+            <h2 *ngIf="newClient">Ingresa tus datos porfavor</h2>
+            <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text input-group-text-4"><i class="fas fa-user"></i></span>
@@ -33,12 +34,13 @@
                         <input type="text" class="form-control" placeholder="Correo" required [readOnly]="!modifyClient" autocomplete="off" [(ngModel)]="client.correo" name="correo">
                     </div>
                 </div>
-                <button type="button" class="btn btn-warning" (click)="modifyClientData()" [style.display]="!modifyClient ? 'block' : 'none'">¿Desea actualizar sus datos?</button>
-                <button type="submit" class="btn btn-warning" [style.display]="modifyClient ? 'block' : 'none'">Actualizar</button>
-                <button type="button" class="btn btn-success" (click)="doPurchase()" [style.display]="!modifyClient ? 'block' : 'none'">Realizar Compra</button>
+                <button type="button" class="btn btn-warning" (click)="modifyClientData()" [style.display]="!modifyClient && !newClient ? 'block' : 'none'">¿Desea actualizar sus datos?</button>
+                <button type="submit" class="btn btn-warning" [style.display]="modifyClient && !newClient ? 'block' : 'none'">Actualizar</button>
+                <button type="submit" class="btn btn-primary" *ngIf="newClient">Registrar y Realizar Compra</button>
+                <button type="button" class="btn btn-success" (click)="doPurchase()" [style.display]="!modifyClient && !newClient ? 'block' : 'none'">Realizar Compra</button>
             </form>
         </div>
-        <div>
+        <div *ngIf="!newClient">
             <h2>Tus compras realizadas: </h2>
             <table class="table table-striped tabla">
                 <thead>

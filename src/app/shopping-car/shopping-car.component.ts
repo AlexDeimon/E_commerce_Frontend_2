@@ -58,8 +58,25 @@ export class ShoppingCarComponent implements OnInit {
     }
   }
 
+  validateClient(clienteId: string): Boolean {
+    if (!clienteId || clienteId.trim() === '') {
+      this._myApiService.mostrarAlerta('error', 'Debes digitar un número de Identificación');
+      return false;
+    } if (!/^[0-9]+$/.test(clienteId)) {
+      this._myApiService.mostrarAlerta('error', 'El número de Identificación debe contener solo números');
+      return false;
+    } if (clienteId.length < 10 || clienteId.length > 12) {
+      this._myApiService.mostrarAlerta('error', 'El número de Identificación debe tener entre 10 y 12 dígitos');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getClientComponent(clienteId: string): void {
-    this._myApiService.getClientComponent(clienteId)
+    if (this.validateClient(clienteId)) {
+      this._myApiService.getClientComponent(clienteId)
+    }
   }
 
   ngOnInit(): void {

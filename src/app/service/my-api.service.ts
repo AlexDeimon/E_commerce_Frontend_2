@@ -90,11 +90,11 @@ export class MyApiService {
   }
 
   getClientComponent(cliente: string): void {
-    if (cliente) {
-      this.router.navigate(['/cliente', cliente]);
-    } else {
-      this.mostrarAlerta('error', 'Debes digitar un numero de ID cliente');
-    }
+    this.router.navigate(['/cliente', cliente]);
+  }
+
+  newClient(cliente:ICliente): Observable<any> {
+    return this._httpClient.post<any>(`${this.baseURL}/clientes/agregar`, cliente);
   }
 
   updateClient(id: string, cliente:ICliente): Observable<any> {

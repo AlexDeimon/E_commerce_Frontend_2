@@ -61,6 +61,26 @@ export class ClientComponent implements OnInit{
     }
   }
 
+  onSubmit() {
+    if (this.newClient) {
+        this.addClient();
+    } else {
+        this.updateClient();
+    }
+  }
+
+  addClient(): void {
+    this._myApiService.newClient(this.client).subscribe({
+      next: () => {
+        this.doPurchase();
+      },
+      error: (error: any) => {
+        this._myApiService.mostrarAlerta('error', error.error.message);
+        console.error(error);
+      }
+    });
+  }
+
   updateClient(): void {
     this._myApiService.updateClient(this.client._id, this.client).subscribe({
       next: () => {
@@ -105,6 +125,11 @@ export class ClientComponent implements OnInit{
         },
         error: () => {
           this.newClient = true;
+          this.modifyClient = true;
+          const elements = document.getElementsByClassName("cardClient");
+          for (let i = 0; i < elements.length; i++) {
+            (elements[i] as HTMLElement).style.gridTemplateColumns = 'none';
+          }
         }
       });
   }
