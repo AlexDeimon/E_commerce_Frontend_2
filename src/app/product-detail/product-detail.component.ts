@@ -51,6 +51,11 @@ export class ProductDetailComponent implements OnInit {
         this._myApiService.getProduct(params['producto']).subscribe({
           next: (data: IProducto) => {
             this.product = data;
+            if (this.product.stock <= 0) {
+              this.product.agotado = true;
+            } else {
+              this.product.agotado = false;
+            }
             this._storageService.getImageUrl(this.product._id).subscribe({
               next: (url: string) => {
                 this.product.imagen = url;

@@ -49,6 +49,11 @@ export class HomeComponent implements OnInit {
             this.storageService.getImageUrl(product._id).subscribe(url => {
               product.imagen = url;
             });
+            if (product.stock <= 0) {
+              product.agotado = true;
+            } else {
+              product.agotado = false;
+            }
           });
         });
       } else if (category == '') {
@@ -58,6 +63,11 @@ export class HomeComponent implements OnInit {
             this.storageService.getImageUrl(product._id).subscribe(url => {
               product.imagen = url;
             });
+            if (product.stock <= 0) {
+              product.agotado = true;
+            } else {
+              product.agotado = false;
+            }
           });
         });
       }

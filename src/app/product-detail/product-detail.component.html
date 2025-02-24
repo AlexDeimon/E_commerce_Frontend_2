@@ -6,7 +6,8 @@
         <div>
             <h2>{{product.producto}}</h2>
             <p><span class="precio">Precio: </span>{{product.precio | currency}}</p>
-            <p class="categoria">{{product.categoria}}</p>
+            <p class="categoria" *ngIf="!product.agotado">{{product.categoria}}</p>
+            <p class="agotado" *ngIf="product.agotado">AGOTADO</p>
             <p>{{product.descripcion}}</p>
             <form #productForm="ngForm" (ngSubmit)="addProductToShoppingCar()">
                 <div class="form-group">

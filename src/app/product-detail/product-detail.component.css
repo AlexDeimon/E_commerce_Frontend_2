@@ -78,6 +78,11 @@
     font-weight: bold;
     color: limegreen;
 }
+.cardProduct2 .agotado {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
 .cardProduct2 .imgProduct {
     min-height: 200px;
     max-height: 400px;
