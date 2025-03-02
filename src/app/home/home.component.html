@@ -9,4 +9,5 @@
         <button class="btn btn-primary btn-crud" [routerLink]="['/productos', product.producto]"><span class="text">Ver producto</span><span class="icon"><i class="fas fa-gamepad"></i></span></button>
     </div>
     <button class="botonCarrito" (click)="goShoppingCar()"><i class="fas fa-shopping-cart"></i></button>
+    <ngx-loading [show]="loading"></ngx-loading>
 </div>

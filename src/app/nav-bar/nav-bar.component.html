@@ -1,7 +1,7 @@
 <ng-container>
     <nav class="nav">
         <app-logo/>    
-        <div class="input-group input-group-search">
+        <div class="input-group input-group-search" *ngIf="inputSearch">
             <select class="form-select" [(ngModel)]="categoria.nombre" name="categoria">
                 <option *ngFor="let categoria of categoriesList">{{ categoria.nombre }}</option>
             </select>

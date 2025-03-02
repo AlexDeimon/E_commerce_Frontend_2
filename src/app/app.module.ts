@@ -14,6 +14,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ShoppingCarComponent } from './shopping-car/shopping-car.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ClientComponent } from './client/client.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes  } from "ngx-loading";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,13 @@ import { ClientComponent } from './client/client.component';
     FormsModule,
     SweetAlert2Module.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.circle,
+      primaryColour: '#ff0000',
+      secondaryColour: '#000000',
+      backdropBackgroundColour: 'rgba(0, 0, 0, 0.9)'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { IProducto } from '../models/product.model';
 import { MyApiService } from '../service/my-api.service';
 import { StorageService } from '../service/storage.service';
@@ -21,6 +21,8 @@ export class ProductDetailComponent implements OnInit {
     cantidadCarrito: 0,
     imagen: ''
   };
+
+  loading = false;
 
   constructor(private _route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) {}
 
@@ -46,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this._route.params.subscribe({
       next: (params: Params) => {
         this._myApiService.getProduct(params['producto']).subscribe({
@@ -59,6 +62,7 @@ export class ProductDetailComponent implements OnInit {
             this._storageService.getImageUrl(this.product._id).subscribe({
               next: (url: string) => {
                 this.product.imagen = url;
+                this.loading = false
               },
               error: (error: any) => {
                 console.error(error);

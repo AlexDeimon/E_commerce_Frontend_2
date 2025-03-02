@@ -29,10 +29,21 @@ export class ClientComponent implements OnInit{
   };
   newClient: boolean = false;
   modifyClient: boolean = false;
+  loading = false;
+  imagesLoaded = 0;
 
   constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService, private router:Router) { }
 
+  imageLoaded(): void {
+    this.imagesLoaded++;
+    if (this.imagesLoaded === this.shoppingCar.productos.length) {
+      this.loading = false;
+    }
+  }
+
   getShoppingCar(id:string): void {
+    this.loading = true;
+    this.imagesLoaded = 0;
     this._myApiService.getShoppingCar(id).subscribe({
       next: (data: ICarrito) => {
         this.shoppingCar = data;
@@ -40,6 +51,7 @@ export class ClientComponent implements OnInit{
           this._storageService.getImageUrl(producto._id).subscribe({
             next: (url: string) => {
               producto.imagen = url;
+              this.imageLoaded();
             },
             error: (error: any) => {
               console.error(error);

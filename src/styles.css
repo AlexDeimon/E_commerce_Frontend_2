@@ -53,3 +53,6 @@ main {
   background-color: black;
   font-size: large;
 }
+.spinner-circle {
+  position: fixed !important;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICarrito } from '../models/shopping-car.model';
 import { IProducto } from '../models/product.model';
 import { ICliente } from '../models/client.model';
@@ -39,16 +39,24 @@ export class ShoppingCarComponent implements OnInit {
     correo:   '',
     compras:  []
   };
+  loading = true;
+  imagesLoaded = 0;
 
-  constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService) { }
+
+  constructor(private route: ActivatedRoute, private _myApiService: MyApiService, private _storageService:StorageService, private router:Router) { }
 
   removeProductFromShoppingCar(producto: string): void {
     const carritoActual = sessionStorage.getItem("carritoActual");
     if (carritoActual) {
       this._myApiService.removeProductFromShoppingCar(carritoActual, producto).subscribe({
         next: (updatedCarrito) => {
-          this._myApiService.mostrarAlerta('success', `Se ha eliminado ${producto} del carrito`);
           this.carrito = updatedCarrito;
+          if(this.carrito.cantidad_productos === 0) {
+            this.router.navigate(['/']);
+          } else {
+            this._myApiService.mostrarAlerta('success', `Se ha eliminado ${producto} del carrito`);
+            this.getCarrito();
+          }
         },
         error: (error) => {
           this._myApiService.mostrarAlerta('error', error.error.message);
@@ -79,7 +87,14 @@ export class ShoppingCarComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  imageLoaded(): void {
+    this.imagesLoaded++;
+    if (this.imagesLoaded === this.carrito.cantidad_productos) {
+      this.loading = false;
+    }
+  }
+
+  getCarrito(): void {
     this.carrito._id = this.route.snapshot.paramMap.get('carritoId') || '';
     this._myApiService.getShoppingCar(this.carrito._id).subscribe({
       next: (data: ICarrito) => {
@@ -88,6 +103,7 @@ export class ShoppingCarComponent implements OnInit {
           this._storageService.getImageUrl(producto._id).subscribe({
             next: (url: string) => {
               producto.imagen = url;
+              this.imageLoaded();
             },
             error: (error: any) => {
               console.error(error);
@@ -99,5 +115,9 @@ export class ShoppingCarComponent implements OnInit {
         console.error(error);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.getCarrito();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { ICategoria } from '../models/category.model';
 import { MyApiService } from '../service/my-api.service';
 import { CategoryService } from '../service/category.service';
@@ -21,10 +22,17 @@ export class NavBarComponent implements OnInit {
       productos: []
     }
   ];
+  inputSearch: boolean = false;
 
-  constructor(private _myApiService: MyApiService, private categoryService: CategoryService) {}
+  constructor(private _myApiService: MyApiService, private categoryService: CategoryService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentPath = event.urlAfterRedirects;
+        this.inputSearch = currentPath === '/';
+      }
+    });
     this._myApiService.getAllCategories().subscribe((data: ICategoria[]) => {
       this.categoriesList.push(...data);
     });

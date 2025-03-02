@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
     precioTotal: 0
   };
   productsList: IProducto[] = [];
+  loading = false;
+  imagesLoaded = 0;
 
   constructor(private _myApiService: MyApiService, private categoryService: CategoryService, private storageService: StorageService) {}
 
@@ -29,6 +31,13 @@ export class HomeComponent implements OnInit {
 
   goShoppingCar(): void {
     this._myApiService.goShoppingCar();
+  }
+
+  imageLoaded(): void {
+    this.imagesLoaded++;
+    if (this.imagesLoaded === this.productsList.length) {
+      this.loading = false;
+    }
   }
 
   ngOnInit(): void {
@@ -42,12 +51,15 @@ export class HomeComponent implements OnInit {
       this.carrito._id = JSON.parse(carritoActual);
     }
     this.categoryService.selectedCategory$.subscribe((category) => {
+      this.loading = true;
       if (category) {
         this._myApiService.getProductsByCategory(category).subscribe((data: IProducto[]) => {
           this.productsList = data;
+          this.imagesLoaded = 0;
           this.productsList.forEach(product => {
             this.storageService.getImageUrl(product._id).subscribe(url => {
               product.imagen = url;
+              this.imageLoaded();
             });
             if (product.stock <= 0) {
               product.agotado = true;
@@ -59,9 +71,11 @@ export class HomeComponent implements OnInit {
       } else if (category == '') {
         this._myApiService.getAllProducts().subscribe((data: IProducto[]) => {
           this.productsList = data;
+          this.imagesLoaded = 0;
           this.productsList.forEach(product => {
             this.storageService.getImageUrl(product._id).subscribe(url => {
               product.imagen = url;
+              this.imageLoaded();
             });
             if (product.stock <= 0) {
               product.agotado = true;
